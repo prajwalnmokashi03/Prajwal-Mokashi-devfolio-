@@ -11,7 +11,7 @@ const experiences = [
   },
   {
     title: 'Hack Fusion 2.0',
-    role: 'frontend developer 🏆',
+    role: 'Product Designer & Developer 🏆',
     date: '2026.05',
     color: '#8B5CF6',
     lineStyle: 'bg-white/20 text-white/40',

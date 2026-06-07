@@ -11,7 +11,7 @@ const projects = [
     tech: ['Kotlin', 'Nearby API', 'Figma'],
     color: '#00F2FF',
     link: 'https://piratelink.vercel.app',
-    github: 'https://github.com/prajwalnmokashi03',
+    github: 'https://github.com/prajwalnmokashi03/piratelink.app',
     images: [
       '/images/projects/piratelink/piratelink-1.png',
       '/images/projects/piratelink/piratelink-2.png',
@@ -25,11 +25,25 @@ const projects = [
     desc: 'Real-time healthcare appointment overbooking stabilizer. Built in 24 hours for Hack Fusion 2.0.',
     tech: ['React 18', 'Node.js', 'PostgreSQL'],
     color: '#8B5CF6',
-    link: '#',
-    github: 'https://github.com/prajwalnmokashi03',
+    link: 'https://healthconnect-8lzi.vercel.app',
+    github: 'https://github.com/abhiyaligar/healthconnect',
     images: [
       '/images/projects/healthconnect/healthconnect-1.png',
       '/images/projects/healthconnect/healthconnect-2.png'
+    ]
+  },
+  {
+    id: 'cinescope',
+    name: 'CineScope',
+    tag: 'Web / Media',
+    desc: 'Full-stack streaming discovery and watchlist app leveraging TMDB API for real-time data.',
+    tech: ['Next.js', 'Firebase', 'TMDB'],
+    color: '#8B5CF6',
+    link: 'https://cinescope-chi.vercel.app',
+    github: 'https://github.com/prajwalnmokashi03/cinescope',
+    images: [
+      '/images/projects/cinescope/cinescope-1.png',
+      '/images/projects/cinescope/cinescope-2.png'
     ]
   },
   {
@@ -40,24 +54,10 @@ const projects = [
     tech: ['Python', 'Ollama', 'Docker'],
     color: '#00F2FF',
     link: '#',
-    github: 'https://github.com/prajwalnmokashi03',
+    github: 'https://github.com/prajwalnmokashi03/XER0-bot',
     images: [
       '/images/projects/xerobot/xerobot-1.png',
       '/images/projects/xerobot/xerobot-2.png'
-    ]
-  },
-  {
-    id: 'cinescope',
-    name: 'CineScope',
-    tag: 'Web / Media',
-    desc: 'Full-stack streaming discovery and watchlist app leveraging TMDB API for real-time data.',
-    tech: ['Next.js', 'Firebase', 'TMDB'],
-    color: '#8B5CF6',
-    link: '#',
-    github: 'https://github.com/prajwalnmokashi03',
-    images: [
-      '/images/projects/cinescope/cinescope-1.png',
-      '/images/projects/cinescope/cinescope-2.png'
     ]
   }
 ];
@@ -174,20 +174,6 @@ function ProjectCarousel({
         ))}
       </div>
 
-      {/* Links Overlay */}
-      <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 z-20 bg-black/40 pointer-events-none">
-        {link !== '#' && (
-          <a href={link} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors text-white pointer-events-auto">
-            <ExternalLink className="w-3 h-3" />
-          </a>
-        )}
-        {github !== '#' && (
-          <a href={github} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors text-white pointer-events-auto">
-            <Github className="w-3 h-3" />
-          </a>
-        )}
-      </div>
-
       {/* Arrows (Desktop) */}
       <button 
         onClick={goToPrev}
@@ -247,9 +233,6 @@ export default function Projects() {
                 <span className="w-1.5 h-1.5 rounded-full shadow-sm" style={{ backgroundColor: project.color, boxShadow: `0 0 5px ${project.color}` }}></span>
                 {project.tag}
               </span>
-              <a href={project.link !== '#' ? project.link : project.github} target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
-                <ArrowUpRight className="w-4 h-4" style={{ color: project.color }} />
-              </a>
             </div>
             
             <h4 className="text-lg font-bold mb-2 text-white/90">{project.name}</h4>
@@ -261,6 +244,21 @@ export default function Projects() {
               {project.tech.map(t => (
                 <span key={t} className="text-[9px] font-bold text-white/40 uppercase tracking-widest">{t}</span>
               ))}
+            </div>
+            
+            <div className="flex flex-wrap gap-3 mb-5 mt-auto">
+              {project.link !== '#' && (
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-[10px] font-bold tracking-widest uppercase flex-1 justify-center sm:flex-none">
+                  <ExternalLink className="w-3.5 h-3.5" style={{ color: project.color }} />
+                  <span className="text-white/80">Website</span>
+                </a>
+              )}
+              {project.github !== '#' && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-[10px] font-bold tracking-widest uppercase flex-1 justify-center sm:flex-none">
+                  <Github className="w-3.5 h-3.5" style={{ color: project.color }} />
+                  <span className="text-white/80">GitHub</span>
+                </a>
+              )}
             </div>
 
             <ProjectCarousel 

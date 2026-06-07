@@ -82,6 +82,8 @@ export default function NavigationDial() {
     return () => observer.disconnect();
   }, []);
   
+  const [hoverSection, setHoverSection] = useState<string | null>(null);
+
   // Click outside to collapse
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
@@ -108,10 +110,12 @@ export default function NavigationDial() {
     }
   };
 
-  // Drag physics logic
+  // Guard against mouse events firing during touch interaction
+  const isTouchInteraction = useRef(false);
+
+  // Mobile Touch System
   const dragStartY = useRef<number | null>(null);
   const isDragging = useRef(false);
-  const [hoverSection, setHoverSection] = useState<string | null>(null);
   const wasExpandedAtTouchStart = useRef(false);
 
   const getSectionFromY = (clientY: number) => {
@@ -125,115 +129,90 @@ export default function NavigationDial() {
     return SECTIONS[validIndex].id;
   };
 
-  const handleStart = (e: React.TouchEvent | React.MouseEvent, clientY: number) => {
-    e.stopPropagation();
-    setIsInteracting(true);
-    dragStartY.current = clientY;
-    isDragging.current = false;
-    wasExpandedAtTouchStart.current = isExpanded;
+  useEffect(() => {
+    const el = dialRef.current;
+    if (!el) return;
 
-    setIsExpanded(true); // Phase 1: Expand Dial immediately
-    setHoverSection(null); // Phase 1: Do NOT highlight any section on start
-  };
-
-  const handleMove = (e: React.TouchEvent | React.MouseEvent, clientY: number) => {
-    e.stopPropagation();
-    if (dragStartY.current === null) return;
-    
-    const deltaY = clientY - dragStartY.current;
-    if (Math.abs(deltaY) >= 8) {
+    const handleTouchStart = (e: TouchEvent) => {
+      isTouchInteraction.current = true; // Mark as touch interaction
+      e.preventDefault();
+      wasExpandedAtTouchStart.current = isExpanded;
+      setIsExpanded(true);
       isDragging.current = true;
-    }
+      dragStartY.current = e.touches[0].clientY;
+    };
     
-    // Phase 2: Highlight in real-time, no navigation
-    const section = getSectionFromY(clientY);
-    if (section) {
-      setHoverSection(section);
-    }
-  };
+    el.addEventListener('touchstart', handleTouchStart, { passive: false });
+    return () => el.removeEventListener('touchstart', handleTouchStart);
+  }, [isExpanded]);
 
-  const handleEnd = (e: TouchEvent | MouseEvent) => {
-    if (e) e.stopPropagation();
-    if (!isInteracting) return;
-    setIsInteracting(false);
+  useEffect(() => {
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDragging.current) return;
+      e.preventDefault();
+      const section = getSectionFromY(e.touches[0].clientY);
+      if (section) setHoverSection(section);
+    };
     
-    let endY = dragStartY.current || 0;
-    if ('changedTouches' in e && e.changedTouches) {
-      endY = e.changedTouches[0].clientY;
-    } else if ('clientY' in e) {
-      endY = e.clientY;
-    }
-    
-    const deltaY = dragStartY.current !== null ? Math.abs(endY - dragStartY.current) : 0;
-    
-    // Check if released OUTSIDE dial
-    let releasedOutside = false;
-    if ('changedTouches' in e && e.changedTouches) {
-      const touch = e.changedTouches[0];
-      const target = document.elementFromPoint(touch.clientX, touch.clientY);
-      if (!dialRef.current?.contains(target)) {
-        releasedOutside = true;
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!isDragging.current) return;
+      
+      let endY = dragStartY.current || 0;
+      if (e.changedTouches && e.changedTouches[0]) {
+        endY = e.changedTouches[0].clientY;
       }
-    } else if (e.target instanceof Node) {
-      if (!dialRef.current?.contains(e.target)) {
-        releasedOutside = true;
-      }
-    }
-
-    if (releasedOutside) {
-      setIsExpanded(false);
-      setHoverSection(null);
-    } else {
-      if (deltaY < 8) {
-        // Tap
-        if (!wasExpandedAtTouchStart.current) {
-          // Phase 1: Tapped collapsed pill. Don't navigate, it just expands.
-        } else {
-          // Tapped an already expanded dial
-          const tappedSection = getSectionFromY(endY) || hoverSection;
-          if (tappedSection) {
-            scrollToSection(tappedSection);
-            setTimeout(() => { setIsExpanded(false); setHoverSection(null); }, 600);
-          }
+      
+      let releasedOutside = false;
+      if (e.changedTouches && e.changedTouches[0]) {
+        const touch = e.changedTouches[0];
+        const target = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (!dialRef.current?.contains(target as Node)) {
+          releasedOutside = true;
         }
+      }
+
+      if (releasedOutside) {
+        setIsExpanded(false);
+        setHoverSection(null);
       } else {
-        // Drag
-        if (hoverSection) {
-          scrollToSection(hoverSection);
-          setTimeout(() => { setIsExpanded(false); setHoverSection(null); }, 800);
+        const deltaY = dragStartY.current !== null ? Math.abs(endY - dragStartY.current) : 0;
+        
+        if (deltaY < 8) {
+          if (wasExpandedAtTouchStart.current) {
+            const tappedSection = getSectionFromY(endY);
+            if (tappedSection) {
+              scrollToSection(tappedSection);
+              setTimeout(() => { setIsExpanded(false); setHoverSection(null); }, 400);
+            }
+          }
+        } else {
+          setHoverSection(currentHover => {
+            if (currentHover) {
+              scrollToSection(currentHover);
+              setTimeout(() => { setIsExpanded(false); setHoverSection(null); }, 400);
+            }
+            return currentHover;
+          });
         }
       }
-    }
-
-    dragStartY.current = null;
-    isDragging.current = false;
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (e.cancelable) e.preventDefault();
-    handleStart(e, e.touches[0].clientY);
-  };
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (e.cancelable) e.preventDefault();
-    handleMove(e, e.touches[0].clientY);
-  };
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (e.cancelable) e.preventDefault();
-    handleEnd(e.nativeEvent);
-  };
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    handleStart(e, e.clientY);
-  };
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (dragStartY.current !== null) {
-      handleMove(e, e.clientY);
-    }
-  };
-  const handleMouseUp = (e: React.MouseEvent) => handleEnd(e.nativeEvent);
-  const handleMouseLeave = (e: React.MouseEvent) => {
-    if (dragStartY.current !== null) handleEnd(e.nativeEvent);
-  };
+      
+      isDragging.current = false;
+      dragStartY.current = null;
+      
+      // Delay resetting the touch flag to ignore ghost clicks
+      setTimeout(() => {
+        isTouchInteraction.current = false;
+      }, 300);
+    };
+    
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd);
+    
+    return () => {
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, []);
 
   if (!show) return null;
 
@@ -255,7 +234,7 @@ export default function NavigationDial() {
             box-shadow: 0 0 12px rgba(0,242,255,0.3);
             animation: glowOpacity 2s ease-in-out infinite alternate;
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
           }
         `}
       </style>
@@ -272,18 +251,19 @@ export default function NavigationDial() {
           scale: { duration: 0.4 } // Hint duration
         }}
         className="fixed right-[14px] top-1/2 -translate-y-1/2 z-[9999]"
-        style={{ userSelect: 'none', touchAction: 'none', WebkitTapHighlightColor: 'transparent', transform: 'translateZ(0)' }}
+        style={{ userSelect: 'none', touchAction: 'none', WebkitTapHighlightColor: 'transparent', transform: 'translateZ(0)', isolation: 'isolate' }}
       >
         <motion.div
           ref={dialRef}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onTouchCancel={handleTouchEnd}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
+          onMouseEnter={() => {
+            if (isTouchInteraction.current) return;
+            setIsExpanded(true);
+          }}
+          onMouseLeave={() => {
+            if (isTouchInteraction.current) return;
+            setIsExpanded(false);
+            setHoverSection(null);
+          }}
           className="relative overflow-hidden flex flex-col justify-center cursor-pointer"
           animate={{
             width: isExpanded ? 120 : 20,
@@ -296,6 +276,9 @@ export default function NavigationDial() {
             backdropFilter: 'blur(16px)',
             WebkitBackdropFilter: 'blur(16px)',
             border: '1px solid rgba(0, 242, 255, 0.25)',
+            willChange: 'transform',
+            transform: 'translateZ(0)',
+            isolation: 'isolate'
           }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
@@ -337,7 +320,16 @@ export default function NavigationDial() {
                   return (
                     <div
                       key={section.id}
-                      className="h-[40px] px-3 flex items-center gap-2 border-b border-[#00F2FF]/[0.08] last:border-b-0 transition-colors duration-200 relative"
+                      onMouseEnter={() => {
+                        if (isTouchInteraction.current) return;
+                        setHoverSection(section.id);
+                      }}
+                      onClick={() => {
+                        if (isTouchInteraction.current) return;
+                        scrollToSection(section.id);
+                        setIsExpanded(false);
+                      }}
+                      className="h-[40px] px-3 flex items-center gap-2 border-b border-[#00F2FF]/[0.08] last:border-b-0 transition-colors duration-200 relative cursor-pointer"
                       style={{
                         background: isSelected ? 'rgba(0, 242, 255, 0.08)' : 'transparent',
                       }}

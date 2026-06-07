@@ -30,10 +30,10 @@ export default function About() {
                 alt="Prajwal Mokashi" 
                 onLoad={() => setImageLoaded(true)}
                 onError={() => setImageError(true)}
-                className={`w-full h-full object-cover mix-blend-overlay group-hover:scale-110 transition-all duration-500 ${imageLoaded ? 'opacity-60' : 'opacity-0'}`}
+                className={`w-full h-full object-cover group-hover:scale-110 transition-all duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
               />
             )}
-            <div className="absolute inset-0 bg-[#00F2FF]/20 pointer-events-none mix-blend-overlay" />
+            {/* Removed the dark mix-blend overlays */}
           </div>
         </div>
         <div>

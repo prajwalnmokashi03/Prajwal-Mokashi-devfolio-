@@ -64,7 +64,7 @@ export default function App() {
           </div>
           <span className="md:ml-4 text-xs font-mono tracking-widest text-[#00F2FF] uppercase opacity-70">system.active_user: prajwal_mokashi</span>
         </div>
-        <div className="text-xs font-mono text-[#8B5CF6] opacity-80">{timeString || '00:00:00 LOCAL'}</div>
+        <div className="text-xs font-mono text-[#8B5CF6] opacity-80">{timeString || '00:00:00'}</div>
       </nav>
 
       <NavigationDial />

@@ -27,7 +27,7 @@ export default function App() {
       
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       
-      setTimeString(`${hours}:${minutes}:${seconds} LOCAL`);
+      setTimeString(`${hours}:${minutes}:${seconds}`);
     };
     
     updateTime();

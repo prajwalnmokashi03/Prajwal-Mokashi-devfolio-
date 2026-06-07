@@ -62,7 +62,7 @@ export default function App() {
             <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
             <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
           </div>
-          <span className="md:ml-4 text-xs font-mono tracking-widest text-[#00F2FF] uppercase opacity-70">system.active_user: prajwal_m</span>
+          <span className="md:ml-4 text-xs font-mono tracking-widest text-[#00F2FF] uppercase opacity-70">system.active_user: prajwal_mokashi</span>
         </div>
         <div className="text-xs font-mono text-[#8B5CF6] opacity-80">{timeString || '00:00:00 LOCAL'}</div>
       </nav>

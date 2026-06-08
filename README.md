@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="public/images/devfolioimg.png" alt="Devfolio Banner" width="100%" />
+</div>
+
 # 🌐 DevFolio — Prajwal Mokashi
 
 > Personal portfolio website built with a terminal OS aesthetic, Liquid Glass glassmorphism UI, and cinematic animations.
@@ -163,7 +167,7 @@ vercel --prod
 | **Portfolio** | [prajwalmokashi.vercel.app](https://prajwalmokashi.vercel.app) |
 | **LinkedIn** | [linkedin.com/in/prajwalmokashi](https://linkedin.com/in/prajwalmokashi) |
 | **GitHub** | [github.com/prajwalnmokashi03](https://github.com) |
-| **Email** | [prajwalmokashi03@gmail.com] |
+| **Email** | prajwalmokashi03@gmail.com |
 
 ---
 

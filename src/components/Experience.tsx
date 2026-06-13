@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import ChapterMarker from './ChapterMarker';
+import BorderGlow from './BorderGlow';
 
 const experiences = [
   {
@@ -44,9 +45,21 @@ export default function Experience() {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6 }}
       id="experience"
-      className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-xl h-full flex flex-col"
+      className="h-full flex flex-col"
     >
-      <ChapterMarker number="04" label="FIELD_NOTES" />
+      <BorderGlow
+        glowColor="186 100 80"
+        backgroundColor="#000000"
+        borderRadius={24}
+        glowRadius={40}
+        glowIntensity={0.8}
+        coneSpread={25}
+        animated={true}
+        colors={['#00F2FF', '#8B5CF6', '#00F2FF']}
+        className="w-full h-full backdrop-blur-xl"
+      >
+        <div className="p-6 md:p-8 flex flex-col h-full relative">
+          <ChapterMarker number="04" label="FIELD_NOTES" />
 
       
       <div className="space-y-6 flex-grow">
@@ -55,7 +68,7 @@ export default function Experience() {
             {/* Timeline Line & Dot */}
             <div className={`w-[1px] relative flex-shrink-0 ${exp.lineStyle.split(' ')[0]} ${index === experiences.length - 1 ? 'h-full min-h-[40px] opacity-20' : 'h-full min-h-[80px]'}`}>
               <div 
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full ring-4 ring-[#0D1515] transition-transform group-hover:scale-150 duration-300"
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full ring-4 ring-black transition-transform group-hover:scale-150 duration-300"
                 style={{ 
                   backgroundColor: index === 0 ? exp.color : 'rgba(255,255,255,0.4)',
                   boxShadow: index === 0 ? `0 0 10px ${exp.color}` : 'none'
@@ -75,6 +88,8 @@ export default function Experience() {
           </div>
         ))}
       </div>
+      </div>
+      </BorderGlow>
     </motion.div>
   );
 }

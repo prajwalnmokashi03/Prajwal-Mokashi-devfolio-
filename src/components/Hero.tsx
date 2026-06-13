@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import ChapterMarker from './ChapterMarker';
+import BorderGlow from './BorderGlow';
 import '@fontsource/geist-sans/700.css';
 
 const TERMINAL_LINES = [
@@ -179,8 +180,20 @@ export default function Hero() {
   }, []);
 
   return (
-    <div id="hero" className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl flex-grow relative overflow-hidden group min-h-[400px] flex flex-col justify-center">
-      <ChapterMarker number="00" label="BOOT_SEQUENCE" />
+    <div id="hero" className="flex-grow relative group min-h-[400px] flex flex-col justify-center">
+      <BorderGlow
+        glowColor="186 100 80"
+        backgroundColor="#000000"
+        borderRadius={24}
+        glowRadius={40}
+        glowIntensity={0.8}
+        coneSpread={25}
+        animated={true}
+        colors={['#00F2FF', '#8B5CF6', '#00F2FF']}
+        className="w-full h-full backdrop-blur-xl"
+      >
+        <div className="p-8 flex flex-col justify-center h-full relative w-full">
+          <ChapterMarker number="00" label="BOOT_SEQUENCE" />
       <style>
         {`
           @keyframes glitch-anim-1 {
@@ -395,6 +408,8 @@ export default function Hero() {
         </div>
       </div>
       <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-[#00F2FF]/20 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+        </div>
+      </BorderGlow>
     </div>
   );
 }

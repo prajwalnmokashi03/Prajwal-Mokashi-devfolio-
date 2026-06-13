@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import ChapterMarker from './ChapterMarker';
+import BorderGlow from './BorderGlow';
 
 const skillGroups = [
   {
@@ -36,9 +37,21 @@ export default function Skills() {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6 }}
       id="skills"
-      className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl flex-grow h-full flex flex-col"
+      className="flex-grow h-full flex flex-col"
     >
-      <ChapterMarker number="05" label="ARSENAL" />
+      <BorderGlow
+        glowColor="186 100 80"
+        backgroundColor="#000000"
+        borderRadius={24}
+        glowRadius={40}
+        glowIntensity={0.8}
+        coneSpread={25}
+        animated={true}
+        colors={['#00F2FF', '#8B5CF6', '#00F2FF']}
+        className="w-full h-full backdrop-blur-xl"
+      >
+        <div className="p-6 flex flex-col h-full relative">
+          <ChapterMarker number="05" label="ARSENAL" />
 
       
       <div className="space-y-6 flex-grow flex flex-col justify-center">
@@ -64,6 +77,8 @@ export default function Skills() {
           </div>
         ))}
       </div>
+      </div>
+      </BorderGlow>
     </motion.div>
   );
 }

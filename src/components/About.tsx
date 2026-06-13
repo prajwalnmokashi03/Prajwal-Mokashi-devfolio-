@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Trophy, User } from 'lucide-react';
 import ChapterMarker from './ChapterMarker';
 import { useState } from 'react';
+import BorderGlow from './BorderGlow';
 
 export default function About() {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -13,17 +14,29 @@ export default function About() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.4 }}
       id="about" 
-      className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-xl relative flex flex-col"
+      className="relative flex flex-col h-full"
     >
-      <ChapterMarker number="01" label="ORIGIN" />
+      <BorderGlow
+        glowColor="186 100 80"
+        backgroundColor="#000000"
+        borderRadius={24}
+        glowRadius={40}
+        glowIntensity={0.8}
+        coneSpread={25}
+        animated={true}
+        colors={['#00F2FF', '#8B5CF6', '#00F2FF']}
+        className="w-full h-full backdrop-blur-xl"
+      >
+        <div className="p-6 md:p-8 flex flex-col h-full relative">
+          <ChapterMarker number="01" label="ORIGIN" />
       <div className="flex gap-4 items-center mb-6">
         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00F2FF] to-[#8B5CF6] p-[1px] flex-shrink-0">
-          <div className="w-full h-full rounded-2xl bg-[#0D1515] flex items-center justify-center overflow-hidden relative group">
+          <div className="w-full h-full rounded-2xl bg-black flex items-center justify-center overflow-hidden relative group">
             {!imageLoaded && !imageError && (
               <div className="absolute inset-0 bg-[#00F2FF]/10 animate-pulse" />
             )}
             {imageError ? (
-              <div className="absolute inset-0 flex items-center justify-center bg-[#0D1515]">
+              <div className="absolute inset-0 flex items-center justify-center bg-black">
                 <User className="w-5 h-5 text-white/20" />
               </div>
             ) : (
@@ -72,6 +85,8 @@ export default function About() {
         <span className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-bold uppercase tracking-[0.1em] text-white/80">Offline-First</span>
         <span className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] font-bold uppercase tracking-[0.1em] text-white/80">UI/UX</span>
       </div>
+      </div>
+      </BorderGlow>
     </motion.div>
   );
 }

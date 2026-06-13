@@ -48,7 +48,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="bg-[#0D1515] text-white font-sans min-h-screen relative overflow-x-hidden selection:bg-os-cyan/30 selection:text-white flex flex-col">
+    <div className="bg-black text-white font-sans min-h-screen relative overflow-x-hidden selection:bg-os-cyan/30 selection:text-white flex flex-col">
       <CursorGlow />
       
       {/* Ambient Background Elements */}
@@ -119,7 +119,7 @@ export default function App() {
       </main>
 
       {/* Bottom Status Bar */}
-      <footer className="h-auto md:h-8 py-3 md:py-0 border-t border-white/5 flex flex-wrap items-center justify-between px-4 md:px-8 text-[9px] font-mono text-white/30 z-20 bg-[#0D1515] relative mt-auto">
+      <footer className="h-auto md:h-8 py-3 md:py-0 border-t border-white/5 flex flex-wrap items-center justify-between px-4 md:px-8 text-[9px] font-mono text-white/30 z-20 bg-black relative mt-auto">
         <div className="flex gap-6 uppercase">
           <span>Latency: {latency}ms</span>
           <span className="text-[#27C93F]">Status: Online</span>

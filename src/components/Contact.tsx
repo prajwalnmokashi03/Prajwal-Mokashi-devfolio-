@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import ChapterMarker from './ChapterMarker';
+import BorderGlow from './BorderGlow';
 
 export default function Contact() {
   return (
@@ -10,8 +11,20 @@ export default function Contact() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="relative flex flex-col p-8 rounded-[16px] border border-[#00F2FF]/15 bg-[#0D1515]/60 backdrop-blur-[16px]"
+        className="relative flex flex-col"
       >
+        <BorderGlow
+          glowColor="186 100 80"
+          backgroundColor="#000000"
+          borderRadius={16}
+          glowRadius={40}
+          glowIntensity={0.8}
+          coneSpread={25}
+          animated={true}
+          colors={['#00F2FF', '#8B5CF6', '#00F2FF']}
+          className="w-full h-full backdrop-blur-[16px]"
+        >
+          <div className="p-8 flex flex-col relative w-full h-full">
 
 
         <h2 className="text-[24px] font-semibold text-white mb-2">End of Log.</h2>
@@ -53,6 +66,8 @@ export default function Contact() {
         <div className="text-center mt-8 text-[11px] text-[#00F2FF]/30" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
           &gt; the next chapter is unwritten. <span className="animate-pulse">_</span>
         </div>
+          </div>
+        </BorderGlow>
       </motion.div>
     </div>
   );

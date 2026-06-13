@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ExternalLink, Github, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import ChapterMarker from './ChapterMarker';
+import BorderGlow from './BorderGlow';
 
 const projects = [
   {
@@ -153,7 +154,7 @@ function ProjectCarousel({
             )}
             
             {imageErrors[i] ? (
-              <div className="absolute inset-0 flex items-center justify-center bg-[#0D1515]">
+              <div className="absolute inset-0 flex items-center justify-center bg-black">
                 <span className="text-white/40 text-xs font-mono uppercase tracking-widest">{projectName}</span>
               </div>
             ) : (
@@ -169,7 +170,7 @@ function ProjectCarousel({
             {/* Color tint matching old style */}
             <div 
               className="absolute inset-0 z-10 transition-opacity duration-500 opacity-60 group-hover/carousel:opacity-30 pointer-events-none mix-blend-overlay"
-              style={{ backgroundImage: `linear-gradient(to top right, #0D1515, ${color}40)` }}
+              style={{ backgroundImage: `linear-gradient(to top right, #000000, ${color}40)` }}
             />
           </div>
         ))}
@@ -228,48 +229,62 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="bg-white/5 border border-white/10 rounded-3xl p-5 backdrop-blur-xl relative group flex flex-col hover:bg-white/10 transition-colors"
+            className="relative group h-full"
           >
-            <div className="flex justify-between items-start mb-3">
-              <span className="text-[9px] font-bold px-2 py-1 bg-white/10 rounded uppercase tracking-widest flex items-center gap-2 text-white/80">
-                <span className="w-1.5 h-1.5 rounded-full shadow-sm" style={{ backgroundColor: project.color, boxShadow: `0 0 5px ${project.color}` }}></span>
-                {project.tag}
-              </span>
-            </div>
-            
-            <h4 className="text-lg font-bold mb-2 text-white/90">{project.name}</h4>
-            <p className="text-[10px] sm:text-[11px] text-white/50 mb-4 leading-relaxed flex-grow">
-              {project.desc}
-            </p>
-            
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.tech.map(t => (
-                <span key={t} className="text-[9px] font-bold text-white/40 uppercase tracking-widest">{t}</span>
-              ))}
-            </div>
-            
-            <div className="flex flex-wrap gap-3 mb-5 mt-auto">
-              {project.link !== '#' && (
-                <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-[10px] font-bold tracking-widest uppercase flex-1 justify-center sm:flex-none">
-                  <ExternalLink className="w-3.5 h-3.5" style={{ color: project.color }} />
-                  <span className="text-white/80">Website</span>
-                </a>
-              )}
-              {project.github !== '#' && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-[10px] font-bold tracking-widest uppercase flex-1 justify-center sm:flex-none">
-                  <Github className="w-3.5 h-3.5" style={{ color: project.color }} />
-                  <span className="text-white/80">GitHub</span>
-                </a>
-              )}
-            </div>
+            <BorderGlow
+              glowColor="186 100 80"
+              backgroundColor="#000000"
+              borderRadius={16}
+              glowRadius={40}
+              glowIntensity={0.8}
+              coneSpread={25}
+              animated={true}
+              colors={['#00F2FF', '#8B5CF6', '#00F2FF']}
+              className="w-full h-full"
+            >
+              <div className="p-5 flex flex-col h-full flex-grow">
+                <div className="flex justify-between items-start mb-3">
+                  <span className="text-[9px] font-bold px-2 py-1 bg-white/10 rounded uppercase tracking-widest flex items-center gap-2 text-white/80">
+                    <span className="w-1.5 h-1.5 rounded-full shadow-sm" style={{ backgroundColor: project.color, boxShadow: `0 0 5px ${project.color}` }}></span>
+                    {project.tag}
+                  </span>
+                </div>
+                
+                <h4 className="text-lg font-bold mb-2 text-white/90">{project.name}</h4>
+                <p className="text-[10px] sm:text-[11px] text-white/50 mb-4 leading-relaxed flex-grow">
+                  {project.desc}
+                </p>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tech.map(t => (
+                    <span key={t} className="text-[9px] font-bold text-white/40 uppercase tracking-widest">{t}</span>
+                  ))}
+                </div>
+                
+                <div className="flex flex-wrap gap-3 mb-5 mt-auto">
+                  {project.link !== '#' && (
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-[10px] font-bold tracking-widest uppercase flex-1 justify-center sm:flex-none">
+                      <ExternalLink className="w-3.5 h-3.5" style={{ color: project.color }} />
+                      <span className="text-white/80">Website</span>
+                    </a>
+                  )}
+                  {project.github !== '#' && (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-[10px] font-bold tracking-widest uppercase flex-1 justify-center sm:flex-none">
+                      <Github className="w-3.5 h-3.5" style={{ color: project.color }} />
+                      <span className="text-white/80">GitHub</span>
+                    </a>
+                  )}
+                </div>
 
-            <ProjectCarousel 
-              images={project.images}
-              color={project.color}
-              projectName={project.name}
-              link={project.link}
-              github={project.github}
-            />
+                <ProjectCarousel 
+                  images={project.images}
+                  color={project.color}
+                  projectName={project.name}
+                  link={project.link}
+                  github={project.github}
+                />
+              </div>
+            </BorderGlow>
           </motion.div>
         ))}
       </div>

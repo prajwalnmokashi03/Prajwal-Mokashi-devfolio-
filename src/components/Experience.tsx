@@ -1,21 +1,22 @@
 import { motion } from 'motion/react';
+import ChapterMarker from './ChapterMarker';
 
 const experiences = [
   {
     title: 'PirateLink',
-    role: 'Android Dev & UI/UX Designer',
+    role: 'Android Developer & UI/UX Designer',
     date: '2026.03 - PRESENT',
     color: '#00F2FF',
     lineStyle: 'bg-gradient-to-b from-[#00F2FF] to-transparent text-[#00F2FF]',
-    desc: 'Built offline-first P2P Android chat app using Google Nearby Connections API — zero internet, zero servers.'
+    desc: 'Started with a question nobody was asking: what if the internet just stopped? Built PirateLink to answer it — an Android app using Google Nearby Connections API that lets people communicate with zero internet, zero servers, and zero cloud costs. Designed every screen from scratch.'
   },
   {
     title: 'Hack Fusion 2.0',
-    role: 'Product Designer & Developer 🏆',
+    role: 'Product Designer & Developer',
     date: '2026.05',
     color: '#8B5CF6',
     lineStyle: 'bg-white/20 text-white/40',
-    desc: 'Built Health Connect, a real-time healthcare appointment overbooking stabilizer — won 1st Runner-Up 🏆'
+    desc: 'Walked in with a team of four and an idea. Walked out 24 hours later with Health Connect — a real-time healthcare overbooking stabilizer — and a 1st Runner-Up trophy 🏆. The pressure revealed how well we actually worked together.'
   },
   {
     title: 'Xero Bot',
@@ -23,7 +24,7 @@ const experiences = [
     date: '2025 - PRESENT',
     color: 'white',
     lineStyle: 'bg-white/10 text-white/40',
-    desc: 'Built an offline AI chatbot running 100% locally with open-source models.'
+    desc: 'Asked the same question I always ask: does this need the internet? Xero Bot runs 100% locally using Ollama and open-source models. No API keys. No subscriptions. Your conversations stay on your device.'
   },
   {
     title: 'Cinescope',
@@ -31,7 +32,7 @@ const experiences = [
     date: '2024',
     color: 'white',
     lineStyle: 'bg-white/10 text-white/40',
-    desc: 'Built a cloud-synced watchlist app using Next.js & Firebase.'
+    desc: 'Built a full-stack streaming discovery and watchlist platform with Next.js, Firebase Auth, and Firestore. The real challenge wasn\'t the features — it was migrating user data from localStorage to cloud sync without breaking anything.'
   }
 ];
 
@@ -45,10 +46,8 @@ export default function Experience() {
       id="experience"
       className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-xl h-full flex flex-col"
     >
-      <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-8 flex items-center gap-3">
-        <span className="w-2 h-2 rounded-full bg-white/20"></span>
-        Experience_Logs
-      </h3>
+      <ChapterMarker number="04" label="FIELD_NOTES" />
+
       
       <div className="space-y-6 flex-grow">
         {experiences.map((exp, index) => (

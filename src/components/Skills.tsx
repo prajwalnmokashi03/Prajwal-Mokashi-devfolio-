@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import ChapterMarker from './ChapterMarker';
 
 const skillGroups = [
   {
@@ -37,10 +38,8 @@ export default function Skills() {
       id="skills"
       className="bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-xl flex-grow h-full flex flex-col"
     >
-      <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-6 flex items-center gap-3">
-        <span className="w-2 h-2 rounded-full bg-white/20"></span>
-        Skill_Matrix
-      </h3>
+      <ChapterMarker number="05" label="ARSENAL" />
+
       
       <div className="space-y-6 flex-grow flex flex-col justify-center">
         {skillGroups.map((group, index) => (

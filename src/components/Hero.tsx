@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import ChapterMarker from './ChapterMarker';
 import '@fontsource/geist-sans/700.css';
 
 const TERMINAL_LINES = [
@@ -179,6 +180,7 @@ export default function Hero() {
 
   return (
     <div id="hero" className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl flex-grow relative overflow-hidden group min-h-[400px] flex flex-col justify-center">
+      <ChapterMarker number="00" label="BOOT_SEQUENCE" />
       <style>
         {`
           @keyframes glitch-anim-1 {

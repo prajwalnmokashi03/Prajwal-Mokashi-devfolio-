@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Trophy, User } from 'lucide-react';
+import ChapterMarker from './ChapterMarker';
 import { useState } from 'react';
 
 export default function About() {
@@ -14,6 +15,7 @@ export default function About() {
       id="about" 
       className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-xl relative flex flex-col"
     >
+      <ChapterMarker number="01" label="ORIGIN" />
       <div className="flex gap-4 items-center mb-6">
         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00F2FF] to-[#8B5CF6] p-[1px] flex-shrink-0">
           <div className="w-full h-full rounded-2xl bg-[#0D1515] flex items-center justify-center overflow-hidden relative group">
@@ -37,17 +39,20 @@ export default function About() {
           </div>
         </div>
         <div>
-          <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 mb-1">Identity</h3>
+
           <p className="text-sm font-semibold text-white/90">Android Dev & UI/UX Designer</p>
         </div>
       </div>
 
       <div className="text-xs sm:text-sm leading-relaxed text-white/60 mb-6 space-y-3">
         <p>
-          I'm Prajwal, an Android developer and UI/UX designer. While most follow tutorials, I ship real products—from offline P2P chat apps to AI portals.
+          I grew up in Hubli-Dharwad — not a tech hub, not a startup city. Just a kid with a laptop and one question that wouldn't leave me alone: What happens to communication when the internet disappears?
         </p>
         <p>
-          My focus bridges the gap between sleek, "Liquid Glass" interfaces and robust, offline-capable architectures. I care about the craft, the micro-interactions, and the edge cases.
+          That question became an obsession. While everyone else was building apps that needed servers, I wanted to build something that didn't. That obsession became PirateLink. Then it became a hackathon win. Then it became this.
+        </p>
+        <p>
+          I care about the craft. The animation that feels slightly off at 3AM. The edge case nobody thought about. The UI that makes someone say 'wait, how does this even work?' — before they realize there's no internet involved.
         </p>
       </div>
 

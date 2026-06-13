@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const SECTIONS = [
-  { id: 'hero', label: 'HERO' },
-  { id: 'projects', label: 'PROJECTS' },
-  { id: 'experience', label: 'EXPERIENCE' },
-  { id: 'skills', label: 'SKILLS' },
-  { id: 'contact', label: 'CONTACT' }
+  { id: 'hero', label: '00. BOOT' },
+  { id: 'manifesto', label: '02. OBSESSION' },
+  { id: 'projects', label: '03. ARTIFACTS' },
+  { id: 'experience', label: '04. FIELD_NOTES' },
+  { id: 'skills', label: '05. ARSENAL' },
+  { id: 'contact', label: '06. TRANSMISSION' }
 ];
 
 export default function NavigationDial() {
@@ -266,7 +267,7 @@ export default function NavigationDial() {
           }}
           className="relative overflow-hidden flex flex-col justify-center cursor-pointer"
           animate={{
-            width: isExpanded ? 120 : 20,
+            width: isExpanded ? 150 : 20,
             height: isExpanded ? SECTIONS.length * 40 + 16 : 72,
             borderRadius: isExpanded ? 20 : 12,
             boxShadow: defaultShadow,

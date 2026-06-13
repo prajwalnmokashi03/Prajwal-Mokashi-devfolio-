@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ExternalLink, Github, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import ChapterMarker from './ChapterMarker';
 
 const projects = [
   {
@@ -211,10 +212,11 @@ function ProjectCarousel({
 export default function Projects() {
   return (
     <section id="projects" className="w-full">
+      <ChapterMarker number="03" label="ARTIFACTS" />
       <div className="mb-4 flex justify-between items-end px-2">
         <div>
-          <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 mb-1">System Archives</h2>
-          <p className="text-xs text-white/50 tracking-widest uppercase">Nodes of the Glass Network</p>
+
+          <p className="text-xs text-white/50 tracking-widest uppercase">Artifacts of the Build</p>
         </div>
       </div>
 

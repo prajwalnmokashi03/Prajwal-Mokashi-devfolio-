@@ -7,10 +7,12 @@ import { useState, useEffect } from 'react';
 import CursorGlow from './components/CursorGlow';
 import Hero from './components/Hero';
 import About from './components/About';
+import Manifesto from './components/Manifesto';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
+import ChapterBridge from './components/ChapterBridge';
 
 import NavigationDial from './components/NavigationDial';
 
@@ -69,28 +71,50 @@ export default function App() {
 
       <NavigationDial />
 
-      <main className="p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-grow z-10 relative max-w-[1600px] mx-auto w-full">
-        {/* Column 1: Hero & About */}
-        <div className="lg:col-span-5 flex flex-col gap-6">
+      <main className="flex-grow z-10 relative max-w-[1600px] mx-auto w-full">
+        {/* 00. BOOT_SEQUENCE — Hero */}
+        <div className="p-4 md:p-6">
           <Hero />
+        </div>
+
+        <ChapterBridge text="Every system has an origin story." />
+
+        {/* 01. ORIGIN — Identity */}
+        <div className="px-4 md:px-6">
           <About />
         </div>
 
-        {/* Column 2: Projects & Experience */}
-        <div className="lg:col-span-7 flex flex-col gap-6">
+        <ChapterBridge text="That obsession needed an outlet. So I started building." />
+
+        {/* 02. THE_OBSESSION — Manifesto */}
+        <Manifesto />
+
+        <ChapterBridge text="Here's what that looks like in practice." />
+
+        {/* 03. ARTIFACTS — Projects */}
+        <div className="px-4 md:px-6">
           <Projects />
-          
-          {/* Bottom Row: Experience & Skills/Contact */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 flex-grow">
-            <div className="md:col-span-7 flex flex-col h-full">
-              <Experience />
-            </div>
-            
-            <div className="md:col-span-5 flex flex-col gap-6 h-full">
-              <Skills />
-              <Contact />
-            </div>
-          </div>
+        </div>
+
+        <ChapterBridge text="Projects don't happen in a vacuum. Here's the journey behind them." />
+
+        {/* 04. FIELD_NOTES — Experience */}
+        <div className="px-4 md:px-6">
+          <Experience />
+        </div>
+
+        <ChapterBridge text="The tools I reached for along the way." />
+
+        {/* 05. ARSENAL — Skills */}
+        <div className="px-4 md:px-6">
+          <Skills />
+        </div>
+
+        <ChapterBridge text="The next chapter is yours to write." />
+
+        {/* 06. TRANSMISSION — Contact */}
+        <div className="px-4 md:px-6">
+          <Contact />
         </div>
       </main>
 
